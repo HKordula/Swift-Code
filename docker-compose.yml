@@ -17,6 +17,11 @@ services:
       - mysql_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./docker/mysql/codes.csv:/var/lib/mysql-files/codes.csv
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # Spring Boot Application
   app:
